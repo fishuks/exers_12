@@ -35,7 +35,14 @@ class Date:
         except (ValueError, IndexError):
             return False
 
-    date = property()
+    
+    @property
+    def date(self):
+        if self.__date is not None:
+            d = self.__date.split('.')
+            mnth = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек']
+            return f'{int(d[0])} {mnth[int(d[1]) - 1]} {int(d[2])} г.'
+        return str(self.__date)
 
     @date.setter
     def date(self, value):
@@ -44,15 +51,7 @@ class Date:
         else:
             print('Ошибка')
             self.__date = None
-
-    @date.getter
-    def date(self):
-        if self.__date is not None:
-            d = self.__date.split('.')
-            mnth = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек']
-            return f'{int(d[0])} {mnth[int(d[1]) - 1]} {int(d[2])} г.'
-        return str(self.__date)
-    
+  
     def to_timestamp(self):
         day, month, year = map(int, self.__date.split('.'))
         days_in_month = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
